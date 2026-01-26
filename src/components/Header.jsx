@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { motion } from "framer-motion";
+import "../index.css";
 
 const navItems = [
   { name: "Experience", path: "/" },
@@ -10,36 +11,32 @@ const navItems = [
 
 export default function Header() {
   return (
-    <header style={styles.header}>
-      <div style={styles.container}>
+    <header className="header">
+      <div className="header-container">
 
         {/* Logo */}
-        <div style={styles.logo}>
-          TED<span style={{ color: "#e10600" }}>x</span>
-          <span style={styles.college}>SSEC</span>
+        <div className="logo">
+          TED<span className="red">x</span>
+          <span className="college">SSEC</span>
         </div>
 
         {/* Navigation */}
-        <nav style={styles.nav}>
+        <nav className="nav">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
               to={item.path}
               end
-              style={styles.link}
+              className="nav-link"
             >
               {({ isActive }) => (
                 <div style={{ position: "relative" }}>
-                  <span style={{
-                    color: isActive ? "#ffffff" : "#888"
-                  }}>
-                    {item.name}
-                  </span>
+                  {item.name}
 
                   {isActive && (
                     <motion.div
-                      layoutId="underline"
-                      style={styles.underline}
+                      layoutId="nav-underline"
+                      className="nav-underline"
                     />
                   )}
                 </div>
@@ -47,6 +44,7 @@ export default function Header() {
             </NavLink>
           ))}
         </nav>
+
       </div>
     </header>
   );
