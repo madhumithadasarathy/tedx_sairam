@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 
 const images = [
-  "https://images.unsplash.com/photo-1526481280690-7eadf8c8b2a7",
-  "https://images.unsplash.com/photo-1508609349937-5ec4ae374ebf",
-  "https://images.unsplash.com/photo-1511379938547-c1f69419868d",
-  "https://images.unsplash.com/photo-1518770660439-4636190af475",
-  "https://images.unsplash.com/photo-1503676260728-1c00da094a0b",
+  "/hero1.jpg",
+  "/hero2.jpg",
+  "/hero3.jpg",
+  "/hero4.jpg",
+  "/hero5.jpg",
 ];
+
 
 export default function Home() {
   return (
