@@ -1,10 +1,9 @@
 /* src/index.css */
 @import "tailwindcss";
 
-/* You can add your own global styles below */
-/* ==============================
-   GLOBAL BASE
-================================ */
+/* ======================================================
+   GLOBAL RESET + BASE THEME
+====================================================== */
 
 * {
   margin: 0;
@@ -12,6 +11,7 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   background: #050505;
   color: #ffffff;
@@ -19,99 +19,200 @@ body {
   overflow-x: hidden;
 }
 
-/* ==============================
-   HEADER (Glassmorphic)
-================================ */
+/* ======================================================
+   TEDx COLOR SYSTEM
+====================================================== */
 
-.header {
+:root {
+  --red: #e10600;
+  --red-glow: rgba(255, 0, 0, 0.6);
+  --glass-bg: rgba(10, 10, 10, 0.78);
+  --glass-border: rgba(255, 0, 0, 0.35);
+  --white-soft: rgba(255, 255, 255, 0.65);
+}
+
+/* ======================================================
+   HUD HEADER (FUTURISTIC NAV)
+====================================================== */
+
+.hud-header {
   position: fixed;
-  top: 0;
+  top: 20px;
   width: 100%;
-  z-index: 100;
-
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-
-  background: rgba(0, 0, 0, 0.6);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.header-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 18px 32px;
-
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-/* ==============================
-   LOGO
-================================ */
+/* ------------------------------------------------------ */
+/* MAIN HUD PANEL */
+/* ------------------------------------------------------ */
 
-.logo {
-  font-weight: 800;
-  font-size: 20px;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-.logo span.red {
-  color: #e10600;
-}
-
-.logo span.college {
-  margin-left: 6px;
-  font-weight: 500;
-  color: #777;
-  font-size: 12px;
-}
-
-/* ==============================
-   NAVIGATION
-================================ */
-
-.nav {
-  display: flex;
-  gap: 42px;
-}
-
-.nav-link {
+.hud-shell {
+  pointer-events: auto;
   position: relative;
 
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 50px;
 
-  letter-spacing: 1.5px;
+  padding: 18px 42px;
+
+  background: var(--glass-bg);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+
+  border: 1px solid var(--glass-border);
+  border-radius: 14px;
+
+  box-shadow:
+    0 0 25px rgba(255, 0, 0, 0.35),
+    inset 0 0 20px rgba(255, 0, 0, 0.12);
+}
+
+/* ------------------------------------------------------ */
+/* ANGULAR CUT EDGES */
+/* ------------------------------------------------------ */
+
+.hud-shell::before,
+.hud-shell::after {
+  content: "";
+  position: absolute;
+  width: 42px;
+  height: 100%;
+  top: 0;
+  background: rgba(255, 0, 0, 0.35);
+}
+
+.hud-shell::before {
+  left: -42px;
+  clip-path: polygon(100% 0, 0 50%, 100% 100%);
+}
+
+.hud-shell::after {
+  right: -42px;
+  clip-path: polygon(0 0, 100% 50%, 0 100%);
+}
+
+/* ======================================================
+   LOGO
+====================================================== */
+
+.hud-logo {
+  font-weight: 900;
+  font-size: 20px;
+  letter-spacing: 1px;
+  color: white;
+}
+
+.hud-logo span {
+  color: var(--red);
+}
+
+.hud-logo small {
+  margin-left: 6px;
+  font-size: 11px;
+  color: #aaa;
+}
+
+/* ======================================================
+   NAVIGATION LINKS
+====================================================== */
+
+.hud-nav {
+  display: flex;
+  gap: 36px;
+}
+
+.hud-link {
+  position: relative;
+  text-decoration: none;
+
+  font-size: 13px;
+  letter-spacing: 2px;
   text-transform: uppercase;
 
-  color: #888;
+  color: var(--white-soft);
+  padding: 8px 4px;
+
   transition: color 0.25s ease;
 }
 
-.nav-link:hover {
+.hud-link:hover {
   color: #ffffff;
 }
 
-/* Active state handled via NavLink */
-.nav-link.active {
+.hud-link.active {
   color: #ffffff;
 }
 
-/* ==============================
-   RED UNDERLINE ANIMATION
-================================ */
+/* ------------------------------------------------------ */
+/* ACTIVE RED GLOW */
+/* ------------------------------------------------------ */
 
-.nav-underline {
+.hud-active-glow {
   position: absolute;
-  left: 0;
-  bottom: -6px;
+  inset: -8px -14px;
+  border-radius: 10px;
 
-  width: 100%;
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 0, 0, 0.45),
+      rgba(255, 0, 0, 0.15),
+      transparent 70%
+    );
+
+  z-index: -1;
+}
+
+/* ======================================================
+   ATTEND CTA BUTTON
+====================================================== */
+
+.hud-cta {
+  color: #ff2b2b;
+  font-weight: 700;
+}
+
+.hud-cta::after {
+  content: "";
+  position: absolute;
+  inset: -10px -18px;
+
+  border-radius: 12px;
+  border: 1px solid rgba(255, 0, 0, 0.7);
+
+  box-shadow:
+    0 0 18px rgba(255, 0, 0, 0.8),
+    inset 0 0 12px rgba(255, 0, 0, 0.6);
+}
+
+/* ======================================================
+   TOP WAVEFORM LINE
+====================================================== */
+
+.hud-wave {
+  position: absolute;
+  top: -8px;
+  width: 70%;
   height: 2px;
 
-  background: #e10600;
-  border-radius: 10px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--red),
+    transparent
+  );
+
+  box-shadow: 0 0 12px var(--red);
+}
+
+/* ======================================================
+   PAGE OFFSET (HEADER FIXED)
+====================================================== */
+
+.page {
+  padding-top: 120px;
 }
