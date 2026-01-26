@@ -6,45 +6,37 @@ const navItems = [
   { name: "Experience", path: "/" },
   { name: "Speakers", path: "/speakers" },
   { name: "Program", path: "/program" },
-  { name: "Attend", path: "/attend", cta: true }
+  { name: "Attend", path: "/attend" }
 ];
 
 export default function Header() {
   return (
-    <header className="hud-header">
-
-      {/* Top waveform */}
-      <div className="hud-wave" />
-
-      <div className="hud-shell">
+    <header className="header">
+      <div className="header-container">
 
         {/* Logo */}
-        <div className="hud-logo">
+        <div className="logo">
           TED<span>x</span>
           <small>SSEC</small>
         </div>
 
         {/* Navigation */}
-        <nav className="hud-nav">
+        <nav className="nav">
           {navItems.map((item) => (
             <NavLink
               key={item.name}
               to={item.path}
               end
-              className={({ isActive }) =>
-                `hud-link 
-                ${item.cta ? "hud-cta" : ""} 
-                ${isActive ? "active" : ""}`
-              }
+              className="nav-link"
             >
               {({ isActive }) => (
                 <div style={{ position: "relative" }}>
-                  <span>{item.name}</span>
+                  {item.name}
 
                   {isActive && (
                     <motion.div
-                      layoutId="hud-active"
-                      className="hud-active-glow"
+                      layoutId="nav-underline"
+                      className="nav-underline"
                     />
                   )}
                 </div>
