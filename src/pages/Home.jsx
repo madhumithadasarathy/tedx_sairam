@@ -2,6 +2,7 @@ import { motion, useAnimation, useInView } from "framer-motion";
 import { useEffect, useRef } from "react";
 import AboutTed from "./AboutTed.jsx";
 import AboutTedSsec from "../components/AboutTedSsec.jsx";
+import AboutSairam from "../components/AboutSairam.jsx";
 
 const images = [
   "/hero1.jpg",
@@ -230,6 +231,7 @@ export default function Home() {
       ======================================================= */}
       <AboutTed />
       <AboutTedSsec />
+      <AboutSairam />
     </>
   );
 }
