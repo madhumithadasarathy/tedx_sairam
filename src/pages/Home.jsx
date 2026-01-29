@@ -18,19 +18,10 @@ const fragments = [
   "Someone created without permission.",
 ];
 
-const kineticWords = [
-  { text: "CREATE", color: "text-pink-500" },
-  { text: "MOVE", color: "text-cyan-400" },
-  { text: "QUESTION", color: "text-yellow-400" },
-  { text: "BUILD", color: "text-green-400" },
-  { text: "EXPRESS", color: "text-purple-400" },
-  { text: "EVOLVE", color: "text-red-500" },
-];
-
 export default function Home() {
   return (
     <>
-      {/* ================= HERO ================= */}
+      {/* ================= HERO SECTION ================= */}
       <section className="relative min-h-screen overflow-hidden">
         <div className="absolute inset-0 grid grid-cols-5">
           {images.map((img, i) => (
@@ -116,7 +107,8 @@ export default function Home() {
             className="text-[clamp(2.4rem,5vw,4.5rem)] font-extrabold"
           >
             Not performers.
-            <br />Not celebrities.
+            <br />
+            Not celebrities.
           </motion.h2>
 
           <p className="mt-6 text-white/70">
@@ -125,72 +117,75 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ================= SECTION 3 — KINETIC ================= */}
+      {/* ================= SECTION 3 — FUTURISTIC ================= */}
       <section className="relative min-h-screen bg-black overflow-hidden flex items-center justify-center">
 
-        {/* GRID BACKGROUND */}
+        {/* TECH GRID */}
         <div
           className="
             absolute inset-0
             bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),
                 linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)]
-            bg-[size:80px_80px]
+            bg-[size:90px_90px]
             opacity-20
           "
         />
 
-        {/* GLOW BLOBS */}
-        <motion.div
-          animate={{ y: [0, -50, 0] }}
-          transition={{ duration: 12, repeat: Infinity }}
-          className="absolute w-[420px] h-[420px] bg-red-600/20 blur-[140px] rounded-full -top-32 -left-32"
-        />
+        {/* GLOWS */}
+        <div className="absolute w-[520px] h-[520px] bg-red-600/25 blur-[180px] rounded-full -top-40 -left-40" />
+        <div className="absolute w-[480px] h-[480px] bg-orange-500/20 blur-[180px] rounded-full top-1/2 left-1/3" />
+        <div className="absolute w-[420px] h-[420px] bg-cyan-400/20 blur-[180px] rounded-full bottom-0 right-0" />
 
-        <motion.div
-          animate={{ y: [0, 60, 0] }}
-          transition={{ duration: 16, repeat: Infinity }}
-          className="absolute w-[380px] h-[380px] bg-cyan-500/20 blur-[140px] rounded-full bottom-0 right-0"
-        />
-
-        {/* WORDS */}
+        {/* KINETIC TEXT */}
         <div className="relative z-10 text-center px-8">
-          {kineticWords.map((item, i) => (
-            <motion.h2
-              key={item.text}
-              initial={{
-                opacity: 0,
-                x: i % 2 === 0 ? -200 : 200,
-                filter: "blur(10px)",
-              }}
-              whileInView={{
-                opacity: 1,
-                x: 0,
-                filter: "blur(0px)",
-              }}
-              transition={{
-                delay: i * 0.15,
-                duration: 0.8,
-                ease: "easeOut",
-              }}
-              viewport={{ once: true }}
-              className={`
-                text-[clamp(3rem,8vw,6rem)]
-                font-black
-                leading-[0.95]
-                tracking-tight
-                ${item.color}
-              `}
-            >
-              {item.text}
-            </motion.h2>
-          ))}
+          {["CREATE", "MOVE", "QUESTION", "BUILD", "EXPRESS", "EVOLVE"].map(
+            (word, i) => (
+              <motion.h2
+                key={word}
+                initial={{ opacity: 0, y: 60, filter: "blur(12px)" }}
+                whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ delay: i * 0.15, duration: 0.85 }}
+                viewport={{ once: true }}
+                whileHover={{
+                  x: -8 + Math.random() * 16,
+                  y: -5 + Math.random() * 10,
+                }}
+                className="
+                  text-[clamp(3.2rem,8vw,6.2rem)]
+                  font-black
+                  leading-[0.95]
+                  tracking-tight
+                  cursor-default
+                  bg-gradient-to-r
+                  from-[#E62B1E]
+                  via-[#ff7a18]
+                  to-[#22d3ee]
+                  bg-[length:300%_300%]
+                  animate-gradient
+                  text-transparent
+                  bg-clip-text
+                "
+              >
+                {word}
+              </motion.h2>
+            )
+          )}
+
+          {/* WAVE LINE */}
+          <div className="mx-auto mt-14 h-[3px] w-44 overflow-hidden rounded-full bg-white/10">
+            <motion.div
+              animate={{ x: ["-100%", "100%"] }}
+              transition={{ duration: 2.4, repeat: Infinity, ease: "linear" }}
+              className="h-full w-1/2 bg-gradient-to-r from-transparent via-red-500 to-transparent"
+            />
+          </div>
 
           <motion.p
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
+            transition={{ delay: 1.3 }}
             viewport={{ once: true }}
-            className="mt-12 text-white/70 tracking-[0.35em] text-xs"
+            className="mt-10 text-white/70 tracking-[0.35em] text-xs"
           >
             DIFFERENT ENERGIES · ONE PLATFORM
           </motion.p>
