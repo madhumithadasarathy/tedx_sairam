@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import React, { useEffect, useRef } from "react";
+import { motion, useAnimation, useInView } from "framer-motion";
+
 import VerifiedIcon from "@mui/icons-material/Verified";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import MilitaryTechIcon from "@mui/icons-material/MilitaryTech";
@@ -6,6 +8,14 @@ import SchoolIcon from "@mui/icons-material/School";
 import TimelineIcon from "@mui/icons-material/Timeline";
 
 export default function AboutSairam() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { amount: 0.35 });
+  const controls = useAnimation();
+
+  useEffect(() => {
+    inView ? controls.start("visible") : controls.start("hidden");
+  }, [inView, controls]);
+
   const chips = [
     { label: "NAAC A+ Accredited", icon: <VerifiedIcon fontSize="small" /> },
     { label: "NBA Accredited (All Depts.)", icon: <WorkspacePremiumIcon fontSize="small" /> },
@@ -55,26 +65,47 @@ export default function AboutSairam() {
   ];
 
   return (
-    <section className="relative min-h-screen w-full overflow-hidden text-white py-20 sm:py-24">
-      {/* background */}
+    <section
+      ref={ref}
+      className="relative min-h-[100svh] w-full overflow-hidden text-white py-20 sm:py-28"
+    >
+      {/* ================= BACKGROUND IMAGE ================= */}
       <div
-        className="absolute inset-0 bg-cover bg-center scale-[1.05]"
+        className="absolute inset-0 bg-cover bg-center scale-[1.06]"
         style={{ backgroundImage: "url(/sairam_main.jpg)" }}
       />
 
-      {/* overlays */}
-      <div className="absolute inset-0 bg-black/75" />
-      <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-transparent to-black/85" />
+      {/* DARK CINEMATIC OVERLAY */}
+      <div className="absolute inset-0 bg-black/80" />
 
-      {/* content */}
+      {/* RED ATMOSPHERIC WASH */}
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-transparent to-black/90" />
+
+      {/* SUBTLE GRID */}
+      <div
+        className="absolute inset-0 opacity-[0.12]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px)",
+          backgroundSize: "160px 160px",
+        }}
+      />
+
+      {/* ================= CONTENT ================= */}
       <motion.div
-        initial={{ opacity: 0, y: 32 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 0.8 }}
+        initial="hidden"
+        animate={controls}
+        variants={{
+          hidden: { opacity: 0, y: 40 },
+          visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.9, ease: "easeOut" },
+          },
+        }}
         className="relative z-10 max-w-7xl mx-auto px-5 sm:px-10"
       >
-        {/* chips */}
+        {/* ================= CHIPS ================= */}
         <div className="flex flex-wrap gap-2 mb-8">
           {chips.map((c) => (
             <span
@@ -95,10 +126,22 @@ export default function AboutSairam() {
           ))}
         </div>
 
-        {/* layout */}
+        {/* ================= LAYOUT ================= */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
-          {/* LEFT */}
-          <div className="lg:col-span-2">
+          {/* ================= LEFT ================= */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: -60 },
+              visible: {
+                opacity: 1,
+                x: 0,
+                transition: { duration: 0.8, ease: "easeOut" },
+              },
+            }}
+            animate={controls}
+            initial="hidden"
+            className="lg:col-span-2"
+          >
             <p className="text-[10px] tracking-[0.4em] text-white/55">
               HOST INSTITUTION
             </p>
@@ -128,10 +171,22 @@ export default function AboutSairam() {
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
 
-          {/* RIGHT */}
-          <div className="lg:col-span-3 mt-10 lg:mt-0">
+          {/* ================= RIGHT ================= */}
+          <motion.div
+            variants={{
+              hidden: { opacity: 0, x: 60 },
+              visible: {
+                opacity: 1,
+                x: 0,
+                transition: { delay: 0.2, duration: 0.8 },
+              },
+            }}
+            animate={controls}
+            initial="hidden"
+            className="lg:col-span-3 mt-10 lg:mt-0"
+          >
             <div className="flex items-center gap-2 mb-4">
               <TimelineIcon fontSize="small" />
               <h4 className="tracking-widest text-xs uppercase">
@@ -143,10 +198,18 @@ export default function AboutSairam() {
               {timeline.map((t, i) => (
                 <motion.li
                   key={t.title}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, amount: 0.25 }}
-                  transition={{ delay: i * 0.06, duration: 0.45 }}
+                  initial={{ opacity: 0, x: 25 }}
+                  animate={controls}
+                  variants={{
+                    visible: {
+                      opacity: 1,
+                      x: 0,
+                      transition: {
+                        delay: 0.35 + i * 0.12,
+                        duration: 0.45,
+                      },
+                    },
+                  }}
                   className="mb-6"
                 >
                   <span className="absolute -left-[6px] mt-1 h-2.5 w-2.5 rounded-full bg-red-600" />
@@ -164,7 +227,7 @@ export default function AboutSairam() {
                 </motion.li>
               ))}
             </ol>
-          </div>
+          </motion.div>
         </div>
       </motion.div>
     </section>
